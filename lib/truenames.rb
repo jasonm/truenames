@@ -1,5 +1,6 @@
-require "truenames/version"
+require 'truenames/version'
+require 'rspec-expectations'
+require "truenames/matchers/expr_eq"
 
 module Truenames
-  # Your code goes here...
 end
