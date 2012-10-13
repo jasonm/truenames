@@ -37,11 +37,15 @@ module Truenames
       end
 
       def reference_names_for(value)
-        local_variable_names_for(value)
+        local_variable_names_for(value) + instance_variable_names_for(value)
       end
 
       def local_variable_names_for(value)
         binding_locals.select { |local| useful_match?(@binding.eval(local.to_s), value) }
+      end
+
+      def instance_variable_names_for(value)
+        binding_ivars.select { |ivar| useful_match?(@binding.eval(ivar.to_s), value) }
       end
 
       def useful_match?(candidate, value)
@@ -53,6 +57,10 @@ module Truenames
 
       def binding_locals
         @binding.eval("local_variables")
+      end
+
+      def binding_ivars
+        @binding.eval("instance_variables")
       end
     end
   end
