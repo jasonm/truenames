@@ -29,22 +29,26 @@ module Truenames
       def inspect_references_for(value)
         references = reference_names_for(value)
 
-        if references.any?
-          " (#{references.join(', ')})"
-        else
+        if references.empty?
           ''
+        else
+          " (#{references})"
         end
       end
 
       def reference_names_for(value)
-        local_variable_names_for(value) + instance_variable_names_for(value)
+        if value.is_a?(Array)
+          "[" + value.map { |each_value| [reference_names_for(each_value)].flatten.first }.join(', ') + "]"
+        else
+          (matching_locals(value) + matching_ivars(value)).join(' or ')
+        end
       end
 
-      def local_variable_names_for(value)
+      def matching_locals(value)
         binding_locals.select { |local| useful_match?(@binding.eval(local.to_s), value) }
       end
 
-      def instance_variable_names_for(value)
+      def matching_ivars(value)
         binding_ivars.select { |ivar| useful_match?(@binding.eval(ivar.to_s), value) }
       end
 
