@@ -38,4 +38,24 @@ describe Truenames::Matchers::ExprEq do
     matcher.matches?(1)
     matcher.failure_message_for_should_not.should eq "\nexpected: value != 1\n     got: 1\n\n(compared using ==)\n"
   end
+
+  it "provides local variable reference when available" do
+    abc = 123
+    bcd = 234
+
+    matcher = expr_eq(abc)
+    matcher.matches?(bcd)
+    matcher.failure_message_for_should.should eq "\nexpected: 123 (abc)\n     got: 234 (bcd)\n\n(compared using ==)\n"
+  end
+
+  it "provides multiple local variable references when they exist" do
+    zab = 123
+    abc = 123
+    bcd = 234
+    cde = 234
+
+    matcher = expr_eq(abc)
+    matcher.matches?(bcd)
+    matcher.failure_message_for_should.should eq "\nexpected: 123 (zab, abc)\n     got: 234 (bcd, cde)\n\n(compared using ==)\n"
+  end
 end
