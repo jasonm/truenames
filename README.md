@@ -47,3 +47,12 @@ For RSpec usage, add `require 'truenames/rspec'` to `spec/spec_helper.rb`.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## TODO
+
+* Make actual output more closely match README
+* Is formatting of ambiguous cases, especially inside lists, helpful?
+  Would permutations be better? E.g.:
+  "(a, b, c or d)" vs "(a, b, c) or (a, b, d)"
+* Match let! and let statements, without triggering lets which aren't yet evaled
+* Make test-unit and minitest and whatever wrappers in addition to RSpec
