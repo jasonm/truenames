@@ -38,7 +38,17 @@ Or install it yourself as:
 
 ## Usage
 
-For RSpec usage, add `require 'truenames/rspec'` to `spec/spec_helper.rb`.
+For RSpec usage, add `require 'truenames/rspec'` to `spec/spec\_helper.rb`.
+
+In your specs, use `expr\_eq` instead of `eq` or `==`:
+
+```ruby
+it "has no idea who it likes" do
+  bad_person = User.first
+  good_person = User.last
+
+  bad_person.should expr_eq good_person
+end
 
 ![more magic](http://farm6.staticflickr.com/5043/5252815237_6a593edb76.jpg)
 
