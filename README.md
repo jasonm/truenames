@@ -40,6 +40,8 @@ Or install it yourself as:
 
 For RSpec usage, add `require 'truenames/rspec'` to `spec/spec_helper.rb`.
 
+![more magic](http://farm6.staticflickr.com/5043/5252815237_6a593edb76.jpg)
+
 ## Contributing
 
 1. Fork it
