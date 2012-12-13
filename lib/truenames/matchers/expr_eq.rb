@@ -40,7 +40,7 @@ module Truenames
         if value.is_a?(Array)
           "[" + value.map { |each_value| [reference_names_for(each_value)].flatten.first }.join(', ') + "]"
         else
-          (matching_locals(value) + matching_ivars(value)).join(' or ')
+          (matching_locals(value) + matching_ivars(value) + matching_lets(value)).join(' or ')
         end
       end
 
@@ -50,6 +50,12 @@ module Truenames
 
       def matching_ivars(value)
         binding_ivars.select { |ivar| useful_match?(@binding.eval(ivar.to_s), value) }
+      end
+
+      def matching_lets(value)
+        binding_lets.
+          select { |let_name, let_value| useful_match?(let_value, value) }.
+          map { |let_name, let_value| "let(#{let_name.inspect})" }
       end
 
       def useful_match?(candidate, value)
@@ -65,6 +71,17 @@ module Truenames
 
       def binding_ivars
         @binding.eval("instance_variables")
+      end
+
+      def binding_lets
+        # ~/.rvm/gems/ruby-1.9.3-p194/gems/rspec-core-2.11.1/lib/rspec/core/let.rb
+        #
+        # def let(name, &block)
+        #   define_method(name) do
+        #     __memoized.fetch(name) {|k| __memoized[k] = instance_eval(&block) }
+        #   end
+        # end
+        @binding.eval("__memoized")
       end
     end
   end

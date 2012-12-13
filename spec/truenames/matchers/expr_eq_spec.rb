@@ -93,4 +93,14 @@ describe Truenames::Matchers::ExprEq do
     matcher.matches?([c,d,e])
     matcher.failure_message_for_should.should eq "\nexpected: [z or a, b, c]\n     got: [c, d, e or f]\n\n(compared using ==)\n"
   end
+
+  context "with let statements" do
+    let(:hello) { "hello" }
+
+    it "displays references to let statements" do
+      matcher = expr_eq("goodbye")
+      matcher.matches?(hello)
+      matcher.failure_message_for_should.should eq "\nexpected: \"goodbye\"\n     got: let(:hello)\n\n(compared using ==)\n"
+    end
+  end
 end
