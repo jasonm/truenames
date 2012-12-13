@@ -45,7 +45,7 @@ describe Truenames::Matchers::ExprEq do
 
     matcher = expr_eq(abc)
     matcher.matches?(bcd)
-    matcher.failure_message_for_should.should eq "\nexpected: 123 (abc)\n     got: 234 (bcd)\n\n(compared using ==)\n"
+    matcher.failure_message_for_should.should eq "\nexpected: abc\n     got: bcd\n\n(compared using ==)\n"
   end
 
   it "provides multiple local variable references when they exist" do
@@ -56,7 +56,7 @@ describe Truenames::Matchers::ExprEq do
 
     matcher = expr_eq(abc)
     matcher.matches?(bcd)
-    matcher.failure_message_for_should.should eq "\nexpected: 123 (zab or abc)\n     got: 234 (bcd or cde)\n\n(compared using ==)\n"
+    matcher.failure_message_for_should.should eq "\nexpected: zab or abc\n     got: bcd or cde\n\n(compared using ==)\n"
   end
 
   it "provides instance variable reference when available" do
@@ -65,7 +65,7 @@ describe Truenames::Matchers::ExprEq do
 
     matcher = expr_eq(@abc)
     matcher.matches?(@bcd)
-    matcher.failure_message_for_should.should eq "\nexpected: 123 (@abc)\n     got: 234 (@bcd)\n\n(compared using ==)\n"
+    matcher.failure_message_for_should.should eq "\nexpected: @abc\n     got: @bcd\n\n(compared using ==)\n"
   end
 
   it "provides local variable references inside arrays" do
@@ -77,7 +77,7 @@ describe Truenames::Matchers::ExprEq do
 
     matcher = expr_eq([a,b,c])
     matcher.matches?([c,d,e])
-    matcher.failure_message_for_should.should eq "\nexpected: [1, 2, 3] ([a, b, c])\n     got: [3, 4, 5] ([c, d, e])\n\n(compared using ==)\n"
+    matcher.failure_message_for_should.should eq "\nexpected: [a, b, c]\n     got: [c, d, e]\n\n(compared using ==)\n"
   end
 
   it "displays ambiguous matches inside arrays " do
@@ -91,6 +91,6 @@ describe Truenames::Matchers::ExprEq do
 
     matcher = expr_eq([a,b,c])
     matcher.matches?([c,d,e])
-    matcher.failure_message_for_should.should eq "\nexpected: [1, 2, 3] ([z or a, b, c])\n     got: [3, 4, 5] ([c, d, e or f])\n\n(compared using ==)\n"
+    matcher.failure_message_for_should.should eq "\nexpected: [z or a, b, c]\n     got: [c, d, e or f]\n\n(compared using ==)\n"
   end
 end

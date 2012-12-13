@@ -20,8 +20,8 @@ module Truenames
       end
 
       def failure_message_for_should
-        "\nexpected: #{expected.inspect}#{inspect_references_for(expected)}\n" +
-          "     got: #{actual.inspect}#{inspect_references_for(actual)}\n\n(compared using ==)\n"
+        "\nexpected: #{inspect_references_for(expected)}\n" +
+          "     got: #{inspect_references_for(actual)}\n\n(compared using ==)\n"
       end
 
       private
@@ -30,9 +30,9 @@ module Truenames
         references = reference_names_for(value)
 
         if references.empty?
-          ''
+          value.inspect
         else
-          " (#{references})"
+          references
         end
       end
 
