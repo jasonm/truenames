@@ -52,7 +52,6 @@ For RSpec usage, add `require 'truenames/rspec'` to `spec/spec_helper.rb`.
 
 ## TODO
 
-* Make actual output more closely match README
 * Is formatting of ambiguous cases, especially inside lists, helpful?
   Would permutations be better? E.g.:
   "(a, b, c or d)" vs "(a, b, c) or (a, b, d)"
